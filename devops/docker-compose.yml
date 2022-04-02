@@ -1,0 +1,52 @@
+version: "3.7"
+
+networks:
+  project_name_server:
+    driver: bridge
+
+volumes:
+  media:
+
+services:
+  db:
+    image: postgres:12.8
+    restart: always
+    env_file:
+      - ../.env
+    volumes:
+      - ../data_base:/var/lib/postgresql/data/
+    ports:
+      - "38525:5432"
+    networks:
+      - project_name_server
+
+  web:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic && gunicorn project_config.wsgi:application --bind 0.0.0.0:80"
+    volumes:
+      - ../static:/projec_name/static
+      - media:/usr/src/project_name/media/
+    expose:
+      - "80"
+    depends_on:
+      - db
+    networks:
+      - project_name_server
+
+  nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    container_name: nginx_release
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./nginx/:/etc/nginx/conf.d
+      - ../static/:/etc/nginx/static
+      - media:/app/my_app_name/media/
+    depends_on:
+      - web
+    networks:
+      - project_name_server
