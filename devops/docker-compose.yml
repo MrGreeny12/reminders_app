@@ -1,7 +1,7 @@
-version: "3.7"
+version: "3.8"
 
 networks:
-  project_name_server:
+  maps_networks:
     driver: bridge
 
 volumes:
@@ -18,7 +18,7 @@ services:
     ports:
       - "38525:5432"
     networks:
-      - project_name_server
+      - maps_networks
 
   web:
     build:
@@ -33,7 +33,7 @@ services:
     depends_on:
       - db
     networks:
-      - project_name_server
+      - maps_networks
 
   nginx:
     image: nginx:latest
@@ -49,4 +49,4 @@ services:
     depends_on:
       - web
     networks:
-      - project_name_server
+      - maps_networks
