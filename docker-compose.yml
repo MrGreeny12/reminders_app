@@ -1,0 +1,18 @@
+version: "3.8"
+
+networks:
+  maps_local_networks:
+    driver: bridge
+
+services:
+  db:
+    image: postgres:12.8
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - ./data_base:/var/lib/postgresql/data/
+    ports:
+      - "38614:5432"
+    networks:
+      - maps_local_networks
