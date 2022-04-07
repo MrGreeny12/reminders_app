@@ -1,12 +1,17 @@
-# Шаблон Django-проекта для VPS (в Docker)
+# M.A.P.S. (My automated productivity system)
+Личный помощник с открытым исходным кодом.
+
 ## Потребуются следующие пакеты:
 - Docker/Docker-compose
-- Django v.3.2 и выше
 - Python 3.8 и выше
 
-## Порядок установки:
-1. Нажать кнопку в правом углу "Use this template".
-2. Клонировать репозиторий на локальную машину.
-3. Отредактировать файлы ```Dockerfile, docker-compose.yml, nginx.conf```
-4. Установить базовые пакеты ```pip install -r requirements.txt```
-5. Запустить образ ```sh run.sh``` или ```sudo sh run.sh```
+## Порядок установки в локальной сети:
+1. Клонировать репозиторий на локальную машину.
+2. Установить базовые пакеты ```pip install -r requirements.txt```
+3. Запустить сервисы```docker-compose up --build -d```
+4. Запустить сервер```python manage.py runserver```
+
+
+## Порядок установки на сервер:
+1. Клонировать репозиторий на сервер.
+2. Запустить образ ```sh run.sh``` или ```sudo sh run.sh```
