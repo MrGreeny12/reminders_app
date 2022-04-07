@@ -11,7 +11,7 @@ class UserModelManager(BaseUserManager):
         username: str,
         password: Optional[str] = None
     ):
-        from users.models import Settings
+        from user.models import Settings
 
         if not email:
             raise ValueError("Users must have an Email address")

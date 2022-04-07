@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     # Custom apps
-    "users",
+    "user",
+    "reminder",
 ]
 
 MIDDLEWARE = [
@@ -93,6 +94,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = "user.UserModel"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
