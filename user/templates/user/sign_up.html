@@ -1,0 +1,32 @@
+{% extends "user/base_user.html" %}
+
+{% block title %}
+  Sign up | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="card mt-5">
+  <div class="card-body">
+    <h4 class="card-title text-center">Sign up</h4>
+    <form method="post">
+      {% csrf_token %}
+      <div class="card-body mx-auto" style="width: 18rem;">
+        <label for="username">Username: </label>
+        <input id="username" type="text" name="username" maxlength="100" required>
+        <label for="email">Email: </label>
+        <input id="email" type="email" name="email" maxlength="100" required>
+        <label for="password">Password: </label>
+        <input id="password" type="password" name="password" maxlength="100" required>
+        <label for="confirm_password">Confirm password: </label>
+        <input id="confirm_password" type="password" name="confirm_password" maxlength="100" required>
+        <button type="submit" class="btn btn-primary btn-block mt-3" style="float:right">Sign up</button>
+      </div>
+    </form>
+    {% if msg %}
+    <div>
+      <p>{{ msg }}</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

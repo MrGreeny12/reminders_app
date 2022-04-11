@@ -9,8 +9,6 @@ class UserModel(AbstractUser):
     """Base user model."""
     # Basic fields
     email = models.EmailField(unique=True, verbose_name="Email")
-    first_name = models.CharField(max_length=128, verbose_name="First name")
-    last_name = models.CharField(max_length=128, verbose_name="Last name")
 
     # Relation fields
     settings = models.OneToOneField("user.Settings", on_delete=models.CASCADE, related_name="user_settings")
@@ -39,4 +37,8 @@ class Settings(models.Model):
 
     @classmethod
     def create_default_settings(cls):
-        return cls.objects.create()
+        settings = cls.objects.create()
+        return settings
+
+    def __str__(self):
+        return f"Settings - User({self.user_settings.email})"
