@@ -3,7 +3,6 @@ from logging import config as logging_config
 from os.path import join
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 import sentry_sdk
 from dotenv import load_dotenv
 from raven.conf import setup_logging
@@ -61,7 +60,7 @@ ROOT_URLCONF = 'project_config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'core/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,41 +128,40 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
 STATIC_URL = '/static/'
 
 # Logging
-LOGGING_CONFIG = None
-client = sentry_sdk.init(
-    dsn=os.environ.get("SENTRY_KEY"),
-    integrations=[DjangoIntegration()],
-    traces_sample_rate=1.0,
-    send_default_pii=True,
-)
-handler = SentryHandler(client=client)
-setup_logging(handler)
-logging_config.dictConfig({
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'console': {
-            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-        },
-    },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console',
-        },
-        'sentry': {
-            'level': 'WARNING',
-            'class': 'raven.handlers.logging.SentryHandler',
-        },
-    },
-    'loggers': {
-        '': {
-            'level': 'WARNING',
-            'handlers': ['console', 'sentry'],
-        },
-    },
-})
+# LOGGING_CONFIG = None
+# client = sentry_sdk.init(
+#     dsn=os.environ.get("SENTRY_KEY"),
+#     integrations=[DjangoIntegration()],
+#     traces_sample_rate=1.0,
+#     send_default_pii=True,
+# )
+# handler = SentryHandler(client=client)
+# setup_logging(handler)
+# logging_config.dictConfig({
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'console': {
+#             'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+#         },
+#     },
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'console',
+#         },
+#         'sentry': {
+#             'level': 'WARNING',
+#             'class': 'raven.handlers.logging.SentryHandler',
+#         },
+#     },
+#     'loggers': {
+#         '': {
+#             'level': 'WARNING',
+#             'handlers': ['console', 'sentry'],
+#         },
+#     },
+# })
