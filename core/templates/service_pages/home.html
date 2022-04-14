@@ -5,6 +5,9 @@
     <div>
         <div class="mt-5">
         <center><h3>Технические работы</h3>
+            {% if request.user.is_authenticated %}
+                <p><small>Hello, {{ request.user.username|title }}!</small></p>
+            {% endif %}
         <p><small>Сервис в процессе разработки. <br>В ближайшее время ничего не произойдет, потому что мы только начали.<br>Не приносим извенения, потому что не за что извинятся. <br>Возвращайтесь, как закончим :3</small></p>
         <br>
         <span><small>Команда M.A.P.S.</small></span>

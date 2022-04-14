@@ -1,0 +1,21 @@
+{% extends "user/base_user.html" %}
+
+{% block title %}
+  Sign out | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="card mt-5">
+  <div class="card-body">
+    <form method="POST">
+    {% csrf_token %}
+      <h2 class="card-title text-center">Sign out</h2>
+      <h4 class="card-title text-center mt-3">{{ username|title }}, are you sure you want to exit?</h4>
+      <div class="d-grid gap-2 col-2 mx-auto mt-5">
+        <button type="submit" class="btn btn-secondary btn-lg" name="sign_out">Yes</button>
+        <button type="submit" class="btn btn-dark btn-lg" name="cancel">No</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

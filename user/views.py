@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -50,3 +51,24 @@ class SignUpView(View):
                 "msg": "Invalid data, please try again"
             }
             return render(request=request, template_name="user/sign_up.html", context=context)
+
+
+class SignOutView(View):
+    """Sign out page for users."""
+
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("home_page")
+        context = {
+            "username": request.user.username
+        }
+        return render(request, "user/sign_out.html", context)
+
+    def post(self, request):
+        if "sign_out" in request.POST:
+            logout(request)
+            return redirect("home_page")
+        elif "cancel" in request.POST:
+            return redirect("home_page")
+        else:
+            raise PermissionDenied
