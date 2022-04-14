@@ -4,7 +4,8 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from user.forms import SignInForm, SignUpForm
+from user.forms import SignInForm, SignUpForm, ForgotPasswordForm
+from user.models import UserModel
 
 
 class SignInView(View):
@@ -56,19 +57,52 @@ class SignUpView(View):
 class SignOutView(View):
     """Sign out page for users."""
 
-    def get(self, request):
+    def get(self, request: HttpRequest) -> HttpResponse:
         if not request.user.is_authenticated:
             return redirect("home_page")
         context = {
             "username": request.user.username
         }
-        return render(request, "user/sign_out.html", context)
+        return render(request=request, template_name="user/sign_out.html", context=context)
 
-    def post(self, request):
+    def post(self, request: HttpRequest) -> HttpResponse:
         if "sign_out" in request.POST:
             logout(request)
-            return redirect("home_page")
+            return redirect(to="home_page")
         elif "cancel" in request.POST:
-            return redirect("home_page")
+            return redirect(to="home_page")
         else:
             raise PermissionDenied
+
+
+class ForgotPasswordView(View):
+    """Forgot password page for users."""
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        if request.user.is_authenticated:
+            return redirect(to="home_page")
+        return render(request=request, template_name="user/forgot_password.html")
+
+    def post(self, request: HttpRequest) -> HttpResponse:
+        form = ForgotPasswordForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get("email")
+            user = UserModel.get_user_by_email(email=email)
+            if user:
+                # TODO: RELEASE - test on release email credentials
+                # send_forgot_password_email()
+                return redirect(to="users:success_forgot_password")
+        context = {
+            "message": "We don’t know this e-mail... Let’s try again!"
+        }
+        return render(request=request, template_name="user/forgot_password.html", context=context)
+
+
+class SuccessForgotPasswordView(View):
+    """Success forgot page for users."""
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        return render(request=request, template_name="user/success_forgot_password.html")
+
+    def post(self, request: HttpRequest) -> HttpResponse:
+        return redirect(to="home_page")

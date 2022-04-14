@@ -25,3 +25,8 @@ class SignUpForm(forms.Form):
         if password != confirm_password:
             raise ValidationError(message="Passwords are different. Please try again.", code=400)
         UserModel.active.create_user(username=username, email=email, password=password)
+
+
+class ForgotPasswordForm(forms.Form):
+    """Form for forgot password user page."""
+    email = forms.EmailField(required=True)

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 from reminder.models import RemindType
@@ -17,6 +18,15 @@ class UserModel(AbstractUser):
     REQUIRED_FIELDS = ["username"]
 
     active = UserModelManager()
+
+    @classmethod
+    def get_user_by_email(cls, email: str):
+        """Get user based email."""
+        try:
+            user = cls.active.get(email=email, is_active=True)
+            return user
+        except ObjectDoesNotExist:
+            return None
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}({self.email})"
