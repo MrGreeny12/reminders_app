@@ -4,7 +4,12 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from user.forms import SignInForm, SignUpForm, ForgotPasswordForm
+from core.services.token_services import ResetPasswordToken
+from user.forms import (
+    SignInForm,
+    SignUpForm,
+    ForgotPasswordForm, ResetPasswordForm
+)
 from user.models import UserModel
 
 
@@ -99,10 +104,47 @@ class ForgotPasswordView(View):
 
 
 class SuccessForgotPasswordView(View):
-    """Success forgot page for users."""
+    """Success forgot password page for users."""
 
     def get(self, request: HttpRequest) -> HttpResponse:
         return render(request=request, template_name="user/success_forgot_password.html")
+
+    def post(self, request: HttpRequest) -> HttpResponse:
+        return redirect(to="home_page")
+
+
+class ResetPasswordView(View):
+    """Reset password page for users."""
+
+    def get(self, request: HttpRequest, token: str) -> HttpResponse:
+        token = ResetPasswordToken(token=token)
+        if request.user.is_authenticated:
+            try:
+                token.validate_user(user=request.user)
+                context = {"user_email": token.payload_data.get("email")}
+                return render(request=request, template_name="user/reset_password.html", context=context)
+            except PermissionDenied:
+                return redirect("home_page")
+        else:
+            context = {"user_email": token.payload_data.get("email")}
+            return render(request=request, template_name="user/reset_password.html", context=context)
+
+    def post(self, request: HttpRequest, token: str) -> HttpResponse:
+        form = ResetPasswordForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(to="users:success_reset_password")
+        context = {
+            "message": "The passwords do not match. Let’s try again!"
+        }
+        return render(request=request, template_name="user/reset_password.html")
+
+
+class SuccessResetPasswordView(View):
+    """Success reset password page for users."""
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        return render(request=request, template_name="user/success_reset_password.html")
 
     def post(self, request: HttpRequest) -> HttpResponse:
         return redirect(to="home_page")

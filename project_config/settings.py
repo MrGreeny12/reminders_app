@@ -165,3 +165,6 @@ STATIC_URL = '/static/'
 #         },
 #     },
 # })
+
+# Token
+SECRET_KEY_FOR_RESET_PASSWORD = os.environ.get("SECRET_KEY_FOR_RESET_PASSWORD")
