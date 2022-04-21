@@ -4,6 +4,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
+from core.services.email_services import send_forgot_password_email
 from core.services.token_services import ResetPasswordToken
 from user.forms import (
     SignInForm,
@@ -93,8 +94,7 @@ class ForgotPasswordView(View):
             if user:
                 data = {"email": email}
                 token = ResetPasswordToken(payload_data=data)
-                # TODO: RELEASE - test on release email credentials
-                # send_forgot_password_email(email=email, token=token)
+                send_forgot_password_email(email=email, token=token)
                 return redirect(to="users:success_forgot_password")
         context = {"message": "We don’t know this e-mail... Let’s try again!"}
         return render(request=request, template_name="user/forgot_password.html", context=context)
