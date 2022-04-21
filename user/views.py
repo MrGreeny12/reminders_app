@@ -8,7 +8,8 @@ from core.services.token_services import ResetPasswordToken
 from user.forms import (
     SignInForm,
     SignUpForm,
-    ForgotPasswordForm, ResetPasswordForm
+    ForgotPasswordForm,
+    ResetPasswordForm
 )
 from user.models import UserModel
 
@@ -33,9 +34,7 @@ class SignInView(View):
             else:
                 return render(request=request, template_name="user/sign_in.html")
         else:
-            context = {
-                "msg": "Invalid email or password entered"
-            }
+            context = {"message": "Invalid email or password entered"}
             return render(request=request, template_name="user/sign_in.html", context=context)
 
 
@@ -54,7 +53,7 @@ class SignUpView(View):
             return redirect("users:sign_in")
         else:
             context = {
-                "msg": "Invalid data, please try again"
+                "message": "Invalid data, please try again"
             }
             return render(request=request, template_name="user/sign_up.html", context=context)
 
@@ -65,9 +64,7 @@ class SignOutView(View):
     def get(self, request: HttpRequest) -> HttpResponse:
         if not request.user.is_authenticated:
             return redirect("home_page")
-        context = {
-            "username": request.user.username
-        }
+        context = {"username": request.user.username}
         return render(request=request, template_name="user/sign_out.html", context=context)
 
     def post(self, request: HttpRequest) -> HttpResponse:
@@ -94,12 +91,12 @@ class ForgotPasswordView(View):
             email = form.cleaned_data.get("email")
             user = UserModel.get_user_by_email(email=email)
             if user:
+                data = {"email": email}
+                token = ResetPasswordToken(payload_data=data)
                 # TODO: RELEASE - test on release email credentials
-                # send_forgot_password_email()
+                # send_forgot_password_email(email=email, token=token)
                 return redirect(to="users:success_forgot_password")
-        context = {
-            "message": "We don’t know this e-mail... Let’s try again!"
-        }
+        context = {"message": "We don’t know this e-mail... Let’s try again!"}
         return render(request=request, template_name="user/forgot_password.html", context=context)
 
 
@@ -134,10 +131,8 @@ class ResetPasswordView(View):
         if form.is_valid():
             form.save()
             return redirect(to="users:success_reset_password")
-        context = {
-            "message": "The passwords do not match. Let’s try again!"
-        }
-        return render(request=request, template_name="user/reset_password.html")
+        context = {"message": "The passwords do not match. Let’s try again!"}
+        return render(request=request, template_name="user/reset_password.html", context=context)
 
 
 class SuccessResetPasswordView(View):
@@ -147,4 +142,4 @@ class SuccessResetPasswordView(View):
         return render(request=request, template_name="user/success_reset_password.html")
 
     def post(self, request: HttpRequest) -> HttpResponse:
-        return redirect(to="home_page")
+        return redirect(to="users:sign_in")
