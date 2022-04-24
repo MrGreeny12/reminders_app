@@ -8,3 +8,4 @@ raven==6.10.0
 Pillow==9.1.0
 pyjwt==2.3.0
 ipython==8.2.0
+pytest-django==4.5.2
