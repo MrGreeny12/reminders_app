@@ -18,4 +18,4 @@
 
 
 ## Запуск тестов:
-- ```pytest tests```
+- ```pytest ./tests```
