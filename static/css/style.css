@@ -93,7 +93,7 @@ h6 {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0.5rem 0.5rem;
 }
 
 /*---------------TEMPLATES---------------------------------*/
@@ -110,14 +110,72 @@ h6 {
 
 .header__container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 1rem 0;
-  font-size: 1.5rem;
+  align-items: center;
 }
 
 .header__menu a {
   text-align: center;
   color: var(--main-color);
+
+}
+
+.nav__menu {
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+nav ul {
+  padding: 0%;
+  margin: 0;
+  list-style: none;
+  position: relative;
+}
+
+nav a {
+  display: block;
+  padding: 1rem;
+  color: var(--main-color);
+  text-decoration: none;
+  min-width: 12rem;
+}
+
+.nav__menu a:hover {
+  border-bottom: solid #2b2b2b 0.2rem;
+}
+
+
+/*---------------------ВЫПАДАЮЩИЙ СПИСОК-----------------------*/
+
+
+.nav__downdrop {
+  position: absolute;
+  top: 100%;
+  right: 1rem;
+  background-color: #fff;
+  z-index: 20;
+  display: none;
+  ;
+}
+
+.nav__downdrop li {
+  min-width: 12rem;
+  float: none;
+  display: list-item;
+  position: relative;
+  padding: 1rem 0.5rem;
+  line-height: 1rem;
+}
+
+.nav__menu:hover .nav__downdrop {
+  display: block;
+
+  /*---------------НЕПРАВИЛЬНО ОТОБРАЖАЕТСЯ СПИСОК -------------------*/
 }
 
 
@@ -129,15 +187,24 @@ footer {
   background-color: #2b2b2b;
 }
 
-.footer__links {
-  padding: 1rem;
+
+.footer__links ul {
   line-height: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0%;
 }
 
 .footer__links ul li a {
-  display: flex;
-  flex-wrap: wrap;
   color: #8b8b8b;
   font-size: 0.8rem;
   text-decoration-line: none;
+  display: block;
 }
+
+.footer__links a:hover {
+  border-bottom: solid #8b8b8b 0.1rem;
+}
+
+;

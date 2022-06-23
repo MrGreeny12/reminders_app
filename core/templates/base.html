@@ -6,8 +6,8 @@
   <meta charset="UTF-8">
   <!--CSS-->
   <link rel="stylesheet" href="/static/css/style.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- я не буду использовать бутстрап <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" -->
+  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <title>
     {% block title %}
     M.A.P.S.
@@ -21,18 +21,40 @@
   <div class="wrapper">
     <header .header>
       <div class="header__container container">
-        <a href="#" class="header__logo"><img src="" alt="M.A.P.S. logo."></a>
+        <a href="#" class="header__logo"><img src="/static/img/logo.svg" alt="M.A.P.S. logo."></a>
         <nav class="header__menu">
-          <ul>
-            <li>My Reminders</li>
-            <li>Settings</li>
-            <li>Sign Up</li>
-            <li>Log In</li>
-            <li>Log Out</li>
+          <ul class='nav__menu'>
+            <li><a href="#" class="header__nav">My Reminders</a></li>
+            <li><a href="#" class="header__nav">Log In</a></li>
+            <li><a href="#" class="header__nav">Sign Up</a></li>
+            <li><a href="#" class="header__nav downdrop"><img src="/static/img/avatar.svg" alt="Dropdown menu."></a>
+            </li>
+            <!-- Выпадающий список -->
+            <ul class="nav__downdrop">
+              <li><a href="#">My Reminders</a></li>
+              <li><a href="#">Log In</a></li>
+              <li><a href="#">Sign Up</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><a href="#">Log Out</a></li>
+            </ul>
           </ul>
         </nav>
       </div>
     </header>
+    <main>
+      <div class="container">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium adipisci reprehenderit quae minima esse
+        culpa, magnam, quidem rerum eos iure vel tenetur maiores modi recusandae quam distinctio expedita natus commodi!
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim itaque, libero repellat veritatis exercitationem
+        non
+        laudantium cupiditate voluptate delectus aut rerum aspernatur unde explicabo laborum architecto dolor quaerat
+        ut.
+        Corrupti.
+        Obcaecati, veritatis exercitationem earum veniam pariatur ipsam velit tenetur enim qui, id sapiente similique a
+        dolore suscipit recusandae ipsa magnam possimus mollitia distinctio aspernatur quos incidunt voluptas. Corrupti,
+        ut sed.
+      </div>
+    </main>
     <footer class="footer">
       <div class="footer__container container">
         <nav class="footer__links">
