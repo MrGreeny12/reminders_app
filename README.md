@@ -9,7 +9,7 @@
 1. Клонировать репозиторий на локальную машину.
 2. Установить базовые пакеты ```pip install -r requirements.txt```
 3. Запустить сервисы```docker-compose up --build -d```
-4. Запустить сервер```python manage.py runserver```
+4. Запустить сервер1```python manage.py runserver```
 
 
 ## Порядок установки на сервер:
