@@ -17,7 +17,8 @@
   <div class="wrapper">
     <header .header>
       <div class="header__container container">
-        <a href="#" class="header__logo"><img src="{% static 'img/logo.svg' %}" alt="M.A.P.S. logo." style="height: 4rem;"></a>
+        <a href="#" class="header__logo"><img src="{% static 'img/logo.svg' %}" alt="M.A.P.S. logo."
+            style="height: 4rem;"></a>
         <nav class="header__menu">
           <!--Все блоки будут сведены в выпадающий список при уменьшении страницы-->
           <ul class='nav__menu'>
@@ -25,25 +26,25 @@
             <li id="header__reminders"><a href="#" class="header__nav">My Reminders</a></li>
             <!--Виден только для НЕавторизованных пользователей-->
             {% if not request.user.is_authenticated %}
-              <li id="header__login"><a href="#" class="header__nav">Log In</a></li>
-              <!--Виден только для НЕавторизованных пользователей-->
-              <li id="header__signup"><a href="#" class="header__nav">Sign Up</a></li>
+            <li id="header__login"><a href="#" class="header__nav">Log In</a></li>
+            <li id="header__signup"><a href="#" class="header__nav">Sign Up</a></li>
             {% endif %}
             <li>
               <!-- Выпадающий список -->
-              <div class="downdrop"><a href="#" class="header__nav downdrop"><img src="/static/img/avatar.svg"
+              <div class="downdrop"><a href="#" class="header__nav downdrop"><img src="{% static 'img/avatar.svg' %}"
                     alt="Dropdown menu." style="width: 2.5rem;"></a>
                 <ul class="nav__downdrop">
-                  <!--Виден только для авторизованных пользователей-->
-                  <li id="down__reminders"><a href="#">My Reminders</a></li>
                   <!--Виден только для НЕавторизованных пользователей-->
+                  {% if not request.user.is_authenticated %}
                   <li id="down__login"><a href="#">Log In</a></li>
-                  <!--Виден только для НЕавторизованных пользователей-->
                   <li id="down__signup"><a href="#">Sign Up</a></li>
+                  {% endif %}
                   <!--Виден только для авторизованных пользователей-->
+                  {% if request.user.is_authenticated %}
+                  <li id="down__reminders"><a href="#">My Reminders</a></li>
                   <li><a href="#">Settings</a></li>
-                  <!--Виден только для авторизованных пользователей-->
                   <li><a href="#">Log Out</a></li>
+                  {% endif %}
                 </ul>
               </div>
             </li>
@@ -52,9 +53,9 @@
       </div>
     </header>
     <main>
-    {% block content %}
+      {% block content %}
       <!-- There is not any content for you -->
-    {% endblock %}
+      {% endblock %}
     </main>
     <footer class="footer">
       <div class="footer__container container">
