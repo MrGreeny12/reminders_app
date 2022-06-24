@@ -21,44 +21,44 @@
   <div class="wrapper">
     <header .header>
       <div class="header__container container">
-        <a href="#" class="header__logo"><img src="/static/img/logo.svg" alt="M.A.P.S. logo."></a>
+        <a href="#" class="header__logo"><img src="/static/img/logo.svg" alt="M.A.P.S. logo." style="height: 4rem;"></a>
         <nav class="header__menu">
+          <!--Все блоки будут сведены в выпадающий список при уменьшении страницы-->
           <ul class='nav__menu'>
-            <li><a href="#" class="header__nav">My Reminders</a></li>
-            <li><a href="#" class="header__nav">Log In</a></li>
-            <li><a href="#" class="header__nav">Sign Up</a></li>
-            <li><a href="#" class="header__nav downdrop"><img src="/static/img/avatar.svg" alt="Dropdown menu."></a>
+            <!--Виден только для авторизованных пользователей-->
+            <li id="header__reminders"><a href="#" class="header__nav">My Reminders</a></li>
+            <!--Виден только для НЕавторизованных пользователей-->
+            <li id="header__login"><a href="#" class="header__nav">Log In</a></li>
+            <!--Виден только для НЕавторизованных пользователей-->
+            <li id="header__signup"><a href="#" class="header__nav">Sign Up</a></li>
+            <li>
+              <!-- Выпадающий список -->
+              <div class="downdrop"><a href="#" class="header__nav downdrop"><img src="/static/img/avatar.svg"
+                    alt="Dropdown menu." style="width: 2.5rem;"></a>
+                <ul class="nav__downdrop">
+                  <!--Виден только для авторизованных пользователей-->
+                  <li id="down__reminders"><a href="#">My Reminders</a></li>
+                  <!--Виден только для НЕавторизованных пользователей-->
+                  <li id="down__login"><a href="#">Log In</a></li>
+                  <!--Виден только для НЕавторизованных пользователей-->
+                  <li id="down__signup"><a href="#">Sign Up</a></li>
+                  <!--Виден только для авторизованных пользователей-->
+                  <li><a href="#">Settings</a></li>
+                  <!--Виден только для авторизованных пользователей-->
+                  <li><a href="#">Log Out</a></li>
+                </ul>
+              </div>
             </li>
-            <!-- Выпадающий список -->
-            <ul class="nav__downdrop">
-              <li><a href="#">My Reminders</a></li>
-              <li><a href="#">Log In</a></li>
-              <li><a href="#">Sign Up</a></li>
-              <li><a href="#">Settings</a></li>
-              <li><a href="#">Log Out</a></li>
-            </ul>
           </ul>
         </nav>
       </div>
     </header>
     <main>
-      <div class="container">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium adipisci reprehenderit quae minima esse
-        culpa, magnam, quidem rerum eos iure vel tenetur maiores modi recusandae quam distinctio expedita natus commodi!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim itaque, libero repellat veritatis exercitationem
-        non
-        laudantium cupiditate voluptate delectus aut rerum aspernatur unde explicabo laborum architecto dolor quaerat
-        ut.
-        Corrupti.
-        Obcaecati, veritatis exercitationem earum veniam pariatur ipsam velit tenetur enim qui, id sapiente similique a
-        dolore suscipit recusandae ipsa magnam possimus mollitia distinctio aspernatur quos incidunt voluptas. Corrupti,
-        ut sed.
-      </div>
     </main>
     <footer class="footer">
       <div class="footer__container container">
-        <nav class="footer__links">
-          <ul>
+        <nav>
+          <ul class="footer__nav">
             <li><a href="#">© 2022 M.A.P.S. Inc. </a></li>
             <li><a href="#">Security</a></li>
             <li><a href="#">Confidential</a></li>
